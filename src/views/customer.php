@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/customer.css">
+<link rel="stylesheet" href="/assets/css/customer.css">
 
 <main class="customer-layout">
 <h1>Phone numbers</h1>
@@ -66,5 +66,5 @@
     </div>
 </div>
 
-<script src="/js/customer.js" defer></script>
+<script src="/assets/js/customer.js" defer></script>
 </main>

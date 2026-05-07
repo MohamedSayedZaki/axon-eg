@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mohamedsayedzaki\AxonEg\Controllers;
 
 use Flight;
+use Mohamedsayedzaki\AxonEg\Requests\CustomerRequest;
 use Mohamedsayedzaki\AxonEg\Services\CustomerService;
 
 class CustomerController
@@ -15,7 +16,7 @@ class CustomerController
 
     public function getAllCustomers(): void
     {
-        $request = $this->validateRequest();
+        $request = (new CustomerRequest())->validated(Flight::request()->query);
 
         $customers = $this->customerService->getAllCustomers($request);
 
@@ -25,19 +26,5 @@ class CustomerController
             'validity' => $request['validity'],
             'page' => (int) $request['page'],
         ]);
-    }
-
-    private function validateRequest(): array
-    {
-        $country = Flight::request()->query['country'] ?? '';
-        $validity = Flight::request()->query['validity'] ?? '';
-        $pageRaw = Flight::request()->query['page'] ?? 1;
-        $page = is_numeric($pageRaw) ? max(1, (int) $pageRaw) : 1;
-
-        return [
-            'country' => $country,
-            'validity' => $validity,
-            'page' => $page,
-        ];
     }
 }
