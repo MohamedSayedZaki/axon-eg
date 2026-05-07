@@ -1,0 +1,119 @@
+.customer-layout {
+    width: 100%;
+    max-width: 960px;
+    margin-inline: auto;
+    padding: clamp(1rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1.25rem);
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.customer-layout > h1 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+.form-group {
+    flex: 1 1 100px;
+    min-width: 100px;
+}
+.form-group label {
+    display: inline-block;
+    margin-bottom: 0.35rem;
+}
+.form-group select {
+    width: 100%;
+    max-width: 280px;
+}
+
+#customer-results {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#customer-results table {
+    width: 100%;
+    max-width: none;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+#customer-results thead {
+    background: #1e3a5f;
+    color: #f8fafc;
+}
+
+#customer-results th {
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.75rem 1rem;
+}
+
+#customer-results td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+}
+
+#customer-results tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#customer-results tbody tr:hover td {
+    background: #f1f5f9;
+}
+
+#customer-results td:nth-child(2) {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+#customer-results td:nth-child(2):not(:empty) {
+    text-transform: lowercase;
+}
+
+#customer-results .pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1e3a5f;
+    text-decoration: none;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #fff;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.pagination-link:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}

@@ -13,5 +13,8 @@
             "email": "mohamedsayedzaki90@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "flightphp/core": "^3.18",
+        "league/container": "^4.2"
+    }
 }
