@@ -1,0 +1,17 @@
+{
+    "name": "mohamedsayedzaki/axon-eg",
+    "description": "A task to validate OOP, code standards and clean code",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Mohamedsayedzaki\\AxonEg\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MohamedSayedZaki",
+            "email": "mohamedsayedzaki90@gmail.com"
+        }
+    ],
+    "require": {}
+}
