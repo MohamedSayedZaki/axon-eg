@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use flight\database\SimplePdo;
+use Mohamedsayedzaki\AxonEg\Repositories\CustomerRepository;
 use Mohamedsayedzaki\AxonEg\Services\CustomerService;
 use PHPUnit\Framework\TestCase;
 
@@ -15,10 +16,10 @@ final class CustomerServiceTest extends TestCase
             '',
             '',
             [
-                \PDO::ATTR_EMULATE_PREPARES => false,
-                \PDO::ATTR_STRINGIFY_FETCHES => false,
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_STRINGIFY_FETCHES => false,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]
         );
 
@@ -29,7 +30,7 @@ final class CustomerServiceTest extends TestCase
                     return 0;
                 }
 
-                return preg_match('#' . $pattern . '#u', $value) === 1 ? 1 : 0;
+                return preg_match('#'.$pattern.'#u', $value) === 1 ? 1 : 0;
             }
         );
 
@@ -44,9 +45,9 @@ final class CustomerServiceTest extends TestCase
         return $pdo;
     }
 
-    public function testGetAllCustomersReturnsEmptyWhenCountryIsEmpty(): void
+    public function test_get_all_customers_returns_empty_when_country_is_empty(): void
     {
-        $service = new CustomerService($this->createMemoryDb());
+        $service = new CustomerService(new CustomerRepository($this->createMemoryDb()));
 
         self::assertSame([], $service->getAllCustomers([
             'country' => '',
@@ -55,9 +56,9 @@ final class CustomerServiceTest extends TestCase
         ]));
     }
 
-    public function testGetAllCustomersReturnsEmptyWhenCountryIsNotNumeric(): void
+    public function test_get_all_customers_returns_empty_when_country_is_not_numeric(): void
     {
-        $service = new CustomerService($this->createMemoryDb());
+        $service = new CustomerService(new CustomerRepository($this->createMemoryDb()));
 
         self::assertSame([], $service->getAllCustomers([
             'country' => '23a',
@@ -66,14 +67,14 @@ final class CustomerServiceTest extends TestCase
         ]));
     }
 
-    public function testGetAllCustomersFiltersValidPhonesWhenValidityIsOne(): void
+    public function test_get_all_customers_filters_valid_phones_when_validity_is_one(): void
     {
         $db = $this->createMemoryDb();
         $db->exec("INSERT INTO customer (id, country, phone) VALUES
             (1, 'Cameroon', '(237) match-one'),
             (2, 'Cameroon', '(251) no-match')");
 
-        $service = new CustomerService($db);
+        $service = new CustomerService(new CustomerRepository($db));
         $rows = $service->getAllCustomers([
             'country' => '237',
             'validity' => '1',
@@ -84,14 +85,14 @@ final class CustomerServiceTest extends TestCase
         self::assertSame('(237) match-one', $rows[0]['phone']);
     }
 
-    public function testGetAllCustomersFiltersInvalidPhonesWhenValidityIsNotOne(): void
+    public function test_get_all_customers_filters_invalid_phones_when_validity_is_not_one(): void
     {
         $db = $this->createMemoryDb();
         $db->exec("INSERT INTO customer (id, country, phone) VALUES
             (1, 'Cameroon', '(237) match-one'),
             (2, 'Cameroon', '(251) no-match')");
 
-        $service = new CustomerService($db);
+        $service = new CustomerService(new CustomerRepository($db));
         $rows = $service->getAllCustomers([
             'country' => '237',
             'validity' => '2',
@@ -102,15 +103,15 @@ final class CustomerServiceTest extends TestCase
         self::assertSame('(251) no-match', $rows[0]['phone']);
     }
 
-    public function testGetAllCustomersPaginatesFivePerPage(): void
+    public function test_get_all_customers_paginates_five_per_page(): void
     {
         $db = $this->createMemoryDb();
         $stmt = $db->prepare('INSERT INTO customer (id, country, phone) VALUES (?, ?, ?)');
         for ($i = 1; $i <= 6; $i++) {
-            $stmt->execute([$i, 'Cameroon', '(237) num-' . $i]);
+            $stmt->execute([$i, 'Cameroon', '(237) num-'.$i]);
         }
 
-        $service = new CustomerService($db);
+        $service = new CustomerService(new CustomerRepository($db));
 
         $page1 = $service->getAllCustomers([
             'country' => '237',

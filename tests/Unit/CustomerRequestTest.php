@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 final class CustomerRequestTest extends TestCase
 {
-    public function testValidatedUsesDefaultsForMissingKeys(): void
+    public function test_validated_uses_defaults_for_missing_keys(): void
     {
-        $subject = new CustomerRequest();
+        $subject = new CustomerRequest;
         $result = $subject->validated(new Collection([]));
 
         self::assertSame([
@@ -20,9 +20,9 @@ final class CustomerRequestTest extends TestCase
         ], $result);
     }
 
-    public function testValidatedPassesThroughCountryAndValidity(): void
+    public function test_validated_passes_through_country_and_validity(): void
     {
-        $subject = new CustomerRequest();
+        $subject = new CustomerRequest;
         $result = $subject->validated(new Collection([
             'country' => '237',
             'validity' => '1',
@@ -36,9 +36,9 @@ final class CustomerRequestTest extends TestCase
         ], $result);
     }
 
-    public function testValidatedCoercesNonNumericPageToOne(): void
+    public function test_validated_coerces_non_numeric_page_to_one(): void
     {
-        $subject = new CustomerRequest();
+        $subject = new CustomerRequest;
         $result = $subject->validated(new Collection([
             'country' => '',
             'validity' => '',
@@ -48,9 +48,9 @@ final class CustomerRequestTest extends TestCase
         self::assertSame(1, $result['page']);
     }
 
-    public function testValidatedFloorsPageBelowOneToOne(): void
+    public function test_validated_floors_page_below_one_to_one(): void
     {
-        $subject = new CustomerRequest();
+        $subject = new CustomerRequest;
         $result = $subject->validated(new Collection([
             'page' => '0',
         ]));

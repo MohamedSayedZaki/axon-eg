@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/assets/css/customer.css">
+<link rel="stylesheet" href="/Public/assets/css/customer.css">
 
 <main class="customer-layout">
 <h1>Phone numbers</h1>
@@ -38,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($customers as $customer): ?>
+            <?php foreach ($customers as $customer) { ?>
                 <?php
                 $phone = (string) ($customer['phone'] ?? '');
                 $phoneParts = $phone !== '' ? preg_split('/\s+/', $phone, 2) : [];
@@ -53,18 +53,18 @@
                     <td><?= $countryCodeCell ?></td>
                     <td><?= $numberCell ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php } ?>
         </tbody>
     </table>
     <div class="pagination">
-        <?php if ($page > 1): ?>
+        <?php if ($page > 1) { ?>
             <a href="?country=<?= $country ?>&validity=<?= $validity ?>&page=<?= $page - 1 ?>" class="pagination-link" data-page="<?= $page - 1 ?>">Previous</a>
-        <?php endif; ?>
-        <?php if (count($customers) === 5): ?>
+        <?php } ?>
+        <?php if (count($customers) === 5) { ?>
             <a href="?country=<?= $country ?>&validity=<?= $validity ?>&page=<?= $page + 1 ?>" class="pagination-link" data-page="<?= $page + 1 ?>">Next</a>
-        <?php endif; ?>
+        <?php } ?>
     </div>
 </div>
 
-<script src="/assets/js/customer.js" defer></script>
+<script src="/Public/assets/js/customer.js" defer></script>
 </main>

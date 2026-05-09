@@ -10,13 +10,11 @@ use Mohamedsayedzaki\AxonEg\Services\CustomerService;
 
 class CustomerController
 {
-    public function __construct(private readonly CustomerService $customerService)
-    {
-    }
+    public function __construct(private readonly CustomerService $customerService) {}
 
     public function getAllCustomers(): void
     {
-        $request = (new CustomerRequest())->validated(Flight::request()->query);
+        $request = (new CustomerRequest)->validated(Flight::request()->query);
 
         $customers = $this->customerService->getAllCustomers($request);
 
